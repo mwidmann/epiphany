@@ -2,12 +2,12 @@
 class EpiDatabase
 {
   const MySql = 'mysql';
-  private static $instances = array(), $type, $name, $host, $user, $pass, $port;
-  private $_type, $_name, $_host, $_user, $_pass, $_port;
+  private static $instances = array(), $type, $name, $host, $user, $pass, $port, $options;
+  private $_type, $_name, $_host, $_user, $_pass, $_port, $_options;
   public $dbh;
   private function __construct(){}
   
-  public static function getInstance($type, $name, $host = 'localhost', $user = 'root', $pass = '', $port = 3306)
+  public static function getInstance($type, $name, $host = 'localhost', $user = 'root', $pass = '', $port = 3306, $options = array())
   {
     $args = func_get_args();
     $hash = md5(implode('~', $args));
@@ -21,6 +21,7 @@ class EpiDatabase
     self::$instances[$hash]->_user = $user;
     self::$instances[$hash]->_pass = $pass;
     self::$instances[$hash]->_port = $port;
+    self::$instances[$hash]->_options = $options;
     return self::$instances[$hash];
   }
   
@@ -82,8 +83,9 @@ class EpiDatabase
     }
   }
 
-  public static function employ($type = null, $name = null, $host = 'localhost', $user = 'root', $pass = '', $port = 3306)
+  public static function employ($type = null, $name = null, $host = 'localhost', $user = 'root', $pass = '', $port = 3306, $options = array())
   {
+
     if(!empty($type) && !empty($name))
     {
       self::$type = $type;
@@ -92,9 +94,10 @@ class EpiDatabase
       self::$user = $user;
       self::$pass = $pass;
       self::$port = $port;
+      self::$options = $options;
     }
 
-    return array('type' => self::$type, 'name' => self::$name, 'host' => self::$host, 'user' => self::$user, 'pass' => self::$pass, 'port' => self::$port);
+    return array('type' => self::$type, 'name' => self::$name, 'host' => self::$host, 'user' => self::$user, 'pass' => self::$pass, 'port' => self::$port, 'options' => self::$options);
   }
 
   private function prepare($sql, $params = array())
@@ -119,7 +122,7 @@ class EpiDatabase
 
     try
     {
-      $this->dbh = new PDO($this->_type . ':host=' . $this->_host . ';dbname=' . $this->_name. ';port=' . $this->_port, $this->_user, $this->_pass);
+      $this->dbh = new PDO($this->_type . ':host=' . $this->_host . ';dbname=' . $this->_name. ';port=' . $this->_port, $this->_user, $this->_pass, $this->_options);
       $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
     catch(Exception $e)
@@ -135,5 +138,5 @@ function getDatabase()
   if(empty($type) || empty($name) || empty($host) || empty($user))
     EpiException::raise(new EpiCacheTypeDoesNotExistException('Could not determine which database module to load', 404));
   else
-    return EpiDatabase::getInstance($type, $name, $host, $user, $pass, $port);
+    return EpiDatabase::getInstance($type, $name, $host, $user, $pass, $port, $options);
 }

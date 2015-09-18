@@ -1,6 +1,7 @@
 <?php
 class EpiCache
 {
+  const MEMCACHE = 'EpiCache_Memcache';
   const MEMCACHED = 'EpiCache_Memcached';
   const APC = 'EpiCache_Apc';
   private static $instances, $employ;
@@ -60,8 +61,8 @@ class EpiCache
    */
   public static function employ()
   {
-    if(func_num_args() === 1)
-      self::$employ = func_get_arg(0);
+    if(func_num_args() > 0)
+      self::$employ = func_get_args();
 
     return self::$employ;
   }
@@ -70,12 +71,8 @@ class EpiCache
 function getCache()
 {
   $employ = EpiCache::employ();
-  if($employ && class_exists($employ))
-    return EpiCache::getInstance($employ);
-  elseif(class_exists(EpiCache::APC))
-    return EpiCache::getInstance(EpiCache::APC);
-  elseif(class_exists(EpiCache::MEMCACHED))
-    return EpiCache::getInstance(EpiCache::MEMCACHED);
+  if($employ && class_exists($employ[0]))
+    return call_user_func_array(array(EpiCache, 'getInstance'), $employ);
   else
     EpiException::raise(new EpiCacheTypeDoesNotExistException('Could not determine which cache handler to load', 404));
 }

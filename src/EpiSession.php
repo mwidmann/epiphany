@@ -1,6 +1,7 @@
 <?php
 class EpiSession
 {
+  const MEMCACHE = 'EpiSession_Memcache';
   const MEMCACHED = 'EpiSession_Memcached';
   const APC = 'EpiSession_Apc';
   const PHP = 'EpiSession_Php';

@@ -14,8 +14,9 @@ class Epi
     '*' => array('base','route','template','cache','session','database'),
     'api' => array('EpiApi.php', 'route'),
     'base' => array('EpiException.php'),
-    'cache' => array('base', 'EpiCache.php', 'cache-apc', 'cache-memcached'),
+    'cache' => array('base', 'EpiCache.php', 'cache-apc', 'cache-memcached', 'cache-memcache'),
     'cache-apc' => array('base', 'EpiCache.php', 'EpiCache_Apc.php'),
+    'cache-memcache' => array('base', 'EpiCache.php', 'EpiCache_Memcache.php'),
     'cache-memcached' => array('base', 'EpiCache.php', 'EpiCache_Memcached.php'),
     'config' => array('base', 'EpiConfig.php'),
     'database' => array('base', 'EpiDatabase.php'),
@@ -24,6 +25,7 @@ class Epi
     'session' => array('base', 'EpiSession.php', 'session-php', 'session-apc', 'session-memcached'),
     'session-php' => array('base', 'EpiSession.php', 'EpiSession_Php.php'),
     'session-apc' => array('base', 'EpiSession.php', 'EpiSession_Apc.php'),
+    'session-memcache' => array('base', 'EpiSession.php', 'EpiSession_Memcache.php'),
     'session-memcached' => array('base', 'EpiSession.php', 'EpiSession_Memcached.php'),
     'template' => array('base', 'EpiTemplate.php'),
   );

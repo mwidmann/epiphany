@@ -21,6 +21,12 @@ The most basic example is including the routing module and defining a few endpoi
         echo 'Send us an email at <a href="mailto:foo@bar.com">foo@bar.com</a>';
     }
 
+##### About this version
+
+This fork adds the possibilty to use the `Memcache` class for caching along with the `Memcached` one. This is useful if you already have the other one of the two installed and enabled.
+
+The second change in this fork is the possibility to set the optional `$options` array for the `PDO::__construct` [method](http://php.net/manual/en/pdo.construct.php). For the cases when you need to be extra specific about your MySql connection.
+
 ----------------------------------------    
 
 ### Learn more about the modules
@@ -71,9 +77,9 @@ Get in touch with the authors if you have suggestions or questions.
 </table>
 
 
-[route]: https://github.com/jmathai/epiphany/blob/master/docs/Route.markdown
-[api]: https://github.com/jmathai/epiphany/blob/master/docs/Api.markdown
-[session]: https://github.com/jmathai/epiphany/blob/master/docs/Session.markdown
-[database]: https://github.com/jmathai/epiphany/blob/master/docs/Database.markdown
-[cache]: https://github.com/jmathai/epiphany/blob/master/docs/Cache.markdown
-[config]: https://github.com/jmathai/epiphany/blob/master/docs/Config.markdown
+[route]: https://github.com/mwidmann/epiphany/blob/master/docs/Route.markdown
+[api]: https://github.com/mwidmann/epiphany/blob/master/docs/Api.markdown
+[session]: https://github.com/mwidmann/epiphany/blob/master/docs/Session.markdown
+[database]: https://github.com/mwidmann/epiphany/blob/master/docs/Database.markdown
+[cache]: https://github.com/mwidmann/epiphany/blob/master/docs/Cache.markdown
+[config]: https://github.com/mwidmann/epiphany/blob/master/docs/Config.markdown

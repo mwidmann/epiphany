@@ -9,7 +9,7 @@ Database
 The database module is a clean interface to PHP's MySql PDO driver. It provides a simple way to use prepared statements to execute queries.
 
     Epi::init('database');
-    EpiDatabase::employ('mysql', 'database', 'host', 'username', 'password');
+    EpiDatabase::employ('mysql', 'database', 'host', 'username', 'password', port, [PDO Options]);
     $user = getDatabase()->one('SELECT * FROM user WHERE userId=:id', array(':id' => $userId));
 
 First you'll need to include the database module. Then you can specify the type, database name, host, username and password. A connection won't be made to MySql until you issue a query. Here we call the `one` method to get a single entry from the database.
